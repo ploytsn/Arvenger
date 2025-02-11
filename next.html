@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <title>ARvenger</title>
+ <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap" rel="stylesheet">
+ <style>
+   body, html {
+     margin: 0;
+     padding: 0;
+     height: 100%;
+     overflow: hidden;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #000;
+     font-family: 'Kanit', sans-serif;
+     touch-action: manipulation;
+   }
+
+   .background-image {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: -1;
+     object-fit: cover;
+   }
+
+   .form-container {
+     position: absolute;
+     bottom: 10%;
+     text-align: center;
+     width: 80%;
+     max-width: 200px;
+   }
+
+   .form-container input[type="text"] {
+     width: 100%;
+     padding: 10px;
+     font-size: 1rem;
+     border: none;
+     border-radius: 5px;
+     margin-bottom: 15px;
+     outline: none;
+     font-family: 'Kanit', sans-serif;
+     -webkit-appearance: none;
+   }
+
+   .submit-button {
+     width: 30%;
+     height: auto;
+     cursor: pointer;
+     transition: transform 0.2s;
+     background: none;
+     border: none;
+     padding: 0;
+     -webkit-tap-highlight-color: transparent;
+   }
+
+   .submit-button:hover {
+     transform: scale(0.95);
+   }
+
+   /* สำหรับมือถือ */
+   @media screen and (max-width: 480px) {
+     .form-container {
+       max-width: 180px;
+     }
+     .form-container input[type="text"] {
+       font-size: 0.9rem;
+     }
+   }
+
+   /* สำหรับแท็บเล็ต/ไอแพด */
+   @media screen and (min-width: 481px) and (max-width: 1024px) {
+     .form-container {
+       max-width: 250px;
+     }
+   }
+
+   /* รักษาอัตราส่วนภาพ */
+   @media screen and (min-aspect-ratio: 1080/1920) {
+     .background-container {
+       width: calc((100vh * 1080) / 1920);
+       height: 100vh;
+     }
+   }
+
+   @media screen and (max-aspect-ratio: 1080/1920) {
+     .background-container {
+       width: 100vw;
+       height: calc((100vw * 1920) / 1080);
+     }
+   }
+ </style>
+</head>
+<body>
+ <img src="./idex.gif" class="background-image">
+
+ <div class="form-container">
+   <form id="playerForm">
+     <input type="text" id="playerName" placeholder="พิมพ์ชื่อผู้เล่น" required>
+     <input type="image" src="ปุ่ม/start.png" alt="Submit" class="submit-button">
+   </form>
+ </div>
+ 
+ <script>
+   // ป้องกันการซูมบนมือถือ
+   document.addEventListener('touchmove', function(event) {
+     if (event.scale !== 1) {
+       event.preventDefault();
+     }
+   }, { passive: false });
+
+   // จัดการ form submit
+   document.getElementById('playerForm').addEventListener('submit', (event) => {
+     event.preventDefault();
+     const playerName = document.getElementById('playerName').value;
+     if (playerName) {
+       window.location.href = 'intro.html';
+     }
+   });
+ </script>
+</body>
+</html>
